@@ -32,21 +32,21 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
-    path: '/login',
+    path: '/admin/login',
     component: () => import('@/views/login/index'),
     hidden: true
   },
 
   {
-    path: '/404',
+    path: '/admin/404',
     component: () => import('@/views/404'),
     hidden: true
   },
 
   {
-    path: '/',
+    path: '/admin/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/admin/dashboard',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
@@ -57,22 +57,34 @@ export const constantRoutes = [
 
 
   {
-    path: '/list',
+    path: '/admin/list',
     component: Layout,
 
-    meta: { title: '列表', icon: 'example' },
+    meta: { title: '文章管理', icon: 'example' },
     children: [
       {
         path: 'draft',
         component: () => import('@/views/list/draft'),
-        meta: { title: '草稿', icon: 'draft' }
+        meta: { title: '未发布', icon: 'draft' }
       },
       {
         path: 'essay',
         component: () => import('@/views/list/essay'),
-        meta: { title: '文章', icon: 'article' }
+        meta: { title: '已发布', icon: 'article' }
       }
     ]
+  },
+  {
+    path: '/admin/comment',
+    component: Layout,
+
+    redirect: '/admin/comment/comment',
+    children: [{
+      path: 'comment',
+      name: 'Dashboard',
+      component: () => import('@/views/list/comment'),
+      meta: { title: '评论管理', icon: 'comment' },
+    }]
   },
 
   // {
@@ -88,7 +100,7 @@ export const constantRoutes = [
   //   ]
   // },
   {
-    path:"/components",
+    path:"/admin/components",
     component:Layout,
     children: [
       {
@@ -170,7 +182,7 @@ export const constantRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '/admin/*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({

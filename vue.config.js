@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Admin Template' // page title
+const name = defaultSettings.title || '梦尘个人博客后台管理' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -24,17 +24,18 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  // publicPath: 'https://cdn.jsdelivr.net/gh/ZengXinLei/blog@master/',
- publicPath: '/',
+
+  publicPath: 'https://cdn.jsdelivr.net/gh/ZengXinLei/blog@master/',
+ // publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
-  productionSourceMap: false,
+  productionSourceMap: true,
   devServer: {
     port: port,
     proxy:{
       '/api':{
-        target:"http://localhost:8088",
+        target:"http://www.miluyiguan.club:8088",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""

@@ -34,7 +34,7 @@
 
       <el-table-column align="center" label="操作" width="190">
         <template slot-scope="scope">
-          <router-link :to="'/components/edit/'+scope.row.did">
+          <router-link :to="'/admin/components/edit/'+scope.row.did">
             <el-button style="float: left" type="primary"  size="mini" icon="el-icon-edit">
               编辑
             </el-button>

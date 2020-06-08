@@ -28,11 +28,18 @@ router.beforeEach(async(to, from, next) => {
       cookieLogin(JSON.parse(hasToken)).then((res)=>{
 
         if(res.data!==""){
+          console.log(to.path)
+          if(to.path.indexOf("admin"))
           next()
+          else{
+            console.log("admin"+to.path)
+            next("admin"+to.path)
+          }
+
         }else {
           NProgress.done()
           removeToken()
-          next("login")
+          next("admin/login")
         }
       })
 
@@ -40,13 +47,13 @@ router.beforeEach(async(to, from, next) => {
     }
     else {
       /*本地无cookie数据*/
-      if(to.path==="/login")
+      if(to.path==="/admin/login")
       {
         next()
       }
       else {
         NProgress.done()
-        next("login")
+        next("admin/login")
       }
 
     }

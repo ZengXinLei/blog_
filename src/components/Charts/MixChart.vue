@@ -148,7 +148,7 @@
             textStyle: {
               color: '#90979c'
             },
-            data: ['文章', '草稿']
+            data: ['已发布', '未发布']
           },
           calculable: true,
           xAxis: [{
@@ -222,7 +222,7 @@
           }],
           series: [
             {
-            name: '文章',
+            name: '已发布',
             type: 'bar',
             stack: 'total',
             barMaxWidth: 35,
@@ -246,7 +246,7 @@
           },
 
             {
-              name: '草稿',
+              name: '未发布',
               type: 'bar',
               stack: 'total',
               itemStyle: {
