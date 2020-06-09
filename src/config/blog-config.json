@@ -1,0 +1,482 @@
+{
+  "nav": {
+    "mainNav": [
+
+    ],
+    "navList": [
+      {
+        "name": "主页",
+        "href": "",
+        "router": "/",
+        "icon": "assets/image/icon/home.svg"
+      },
+      {
+        "name": "技术分享",
+        "href": "",
+        "router": "/blog",
+        "icon": "assets/image/icon/article.svg"
+      },
+      {
+        "name": "留言墙",
+        "href": "",
+        "router": "/contact",
+        "icon": "assets/image/icon/message.svg"
+      },
+      {
+        "name": "后台管理",
+        "href": "http://www.miluyiguan.club/admin",
+        "router": "",
+        "icon": "assets/image/icon/back.svg"
+      }
+    ]
+  },
+  "page": {
+    "entryPage": [
+      {
+        "name": "index",
+        "title": "我是梦尘",
+        "desc": "很高兴能遇见你",
+        "backgroundImage": "assets/image/background/9.jpg",
+        "isOpacityFull": true
+      },
+      {
+        "name": "contact",
+        "title": "关于我",
+        "desc": "和我的博客",
+        "backgroundImage": "assets/image/background/9.jpg",
+        "isOpacityFull": true,
+        "titleClass": "title-contact"
+      },
+      {
+        "name": "blog",
+        "title": "技术杂谈",
+        "desc": "保持谦逊",
+        "backgroundImage": "assets/image/background/30.jpg",
+        "isOpacityFull": false,
+        "titleClass": "title-blog"
+      },
+      {
+        "name": "life",
+        "title": "生活",
+        "desc": "滋润一点",
+        "backgroundImage": "assets/image/background/27.jpg",
+        "isOpacityFull": false,
+        "titleClass": "title-blog"
+      }
+    ],
+    "detail": [
+      {
+        "id": "blog-detail",
+        "name": "博文",
+        "router": "/",
+        "class": "view-detail"
+      },
+      {
+        "id": "life-detail",
+        "name": "生活博文",
+        "router": "/life",
+        "class": "view-detail-life"
+      }
+    ]
+  },
+  "data": {
+    "article": {
+      "articleList": [
+        {
+          "id": 151,
+          "title": "从零开始学习Rollup.js的前端打包利器",
+          "time": "2018-06-26 16:50",
+          "author": "梦尘",
+          "photoUrl": "assets/image/article/rollupimg.jpg",
+          "summary": "Rollup 是一个 JavaScript 模块打包器，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序,之前的vue的插件就是用rollup打包的",
+          "thumbUp": 2,
+          "articleRead": 23,
+          "commentCount": 1,
+          "tag": "javascript,rollup.js",
+          "thumbUpStatus": 1
+        },
+        {
+          "id": 150,
+          "title": "Vue原理解析——自己写个Vue",
+          "time": "2018-05-24 15:58",
+          "author": "梦尘",
+          "photoUrl": "assets/image/article/Vuejs1.jpg",
+          "summary": "Vue由于其高效的性能和灵活入门简单、轻量的特点下变得火热 在当今前端越来越普遍的使用，今天来剖析一下Vue的深入响应式原理。",
+          "thumbUp": 1,
+          "articleRead": 43,
+          "commentCount": 1,
+          "tag": "vue,javascript",
+          "thumbUpStatus": 0
+        },
+        {
+          "id": 149,
+          "title": "Vue插件开发初体验——（懒加载）",
+          "time": "2018-04-08 10:28",
+          "author": "梦尘",
+          "photoUrl": "assets/image/article/vuePlugin.jpeg",
+          "summary": "我一直推崇一些高度定制化的插件，一些小Demo，是需要自己写的，不能崇尚“拿来主义”。有些插件网上都有，但是你用了会发现谁都会用，而且有时候对于自己的需求又不够贴合。所以会写插件是一个必备的技能。",
+          "thumbUp": 0,
+          "articleRead": 41,
+          "commentCount": 0,
+          "tag": "javascript,vue,插件开发",
+          "thumbUpStatus": 0
+        },
+        {
+          "id": 148,
+          "title": "Javascript基础设计(四)——不可忽视的细节",
+          "time": "2018-02-06 22:28",
+          "author": "梦尘",
+          "photoUrl": "assets/image/article/jsjs2.jpeg",
+          "summary": "虽然随着ES6的出现，Javascript语言变得越来越规范化，但是不容忽视的是：JS还有许许多多的细节需要重视，这篇博文主要记录那些容易忽视又不可以忽视的语言细节，持续更新",
+          "thumbUp": 0,
+          "articleRead": 36,
+          "commentCount": 1,
+          "tag": "javascript",
+          "thumbUpStatus": 0
+        },
+        {
+          "id": 147,
+          "title": "Node入门——爬虫获取\"虎扑步行街\"的活跃用户数据与结构",
+          "time": "2018-01-30 22:47",
+          "author": "梦尘",
+          "photoUrl": "assets/image/article/nodeJS.jpeg",
+          "summary": "最近利用闲暇时间想要爬取虎扑的一些用户数据，大致可以统计现在发帖回帖的用户的公开信息，看看现在步行街用户群体是怎么样一个‘背景’。",
+          "thumbUp": 4,
+          "articleRead": 111,
+          "commentCount": 1,
+          "tag": "node.js,javascript,爬虫",
+          "thumbUpStatus": 0
+        }
+      ]
+    },
+    "life": {
+      "lifeList": [
+        {
+          "id": 1,
+          "author": "梦尘",
+          "comment": 3,
+          "time": "2018-04-10 14:38",
+          "photo": "assets/image/life/saierdafengmian.jpg",
+          "read": 38,
+          "thumb": 1,
+          "title": "我的海拉鲁世界"
+        },
+        {
+          "id": 2,
+          "author": "梦尘",
+          "comment": 0,
+          "time": "2018-07-04 10:25",
+          "photo": "assets/image/life/banwagong.jpeg",
+          "read": 47,
+          "thumb": 2,
+          "title": "用搬瓦工给自己搭建一个shadowsocks服务器"
+        },
+        {
+          "id": 3,
+          "author": "梦尘",
+          "comment": 0,
+          "time": "2018-07-04 10:25",
+          "photo": "assets/image/53b8d6afdeef5.jpg",
+          "read": 47,
+          "thumb": 2,
+          "title": "这是我的标题，最好不要超过30个字节，会造成排版错乱"
+        },
+        {
+          "id": 4,
+          "author": "梦尘",
+          "comment": 0,
+          "time": "2018-07-04 10:25",
+          "photo": "assets/image/tangyida.jpeg",
+          "read": 47,
+          "thumb": 2,
+          "title": "这是瀑布墙的流式分布"
+        },
+        {
+          "id": 5,
+          "author": "梦尘",
+          "comment": 0,
+          "time": "2018-07-04 10:25",
+          "photo": "assets/image/background2.jpg",
+          "read": 47,
+          "thumb": 2,
+          "title": "这是测试数据"
+        },
+        {
+          "id": 6,
+          "author": "梦尘",
+          "comment": 0,
+          "time": "2018-07-04 10:25",
+          "photo": "assets/image/background5.jpg",
+          "read": 47,
+          "thumb": 2,
+          "title": "这是测试数据，仅供参考，为了排版"
+        },
+        {
+          "id": 7,
+          "author": "梦尘",
+          "comment": 0,
+          "time": "2018-07-04 10:25",
+          "photo": "assets/image/headimag2.jpg",
+          "read": 47,
+          "thumb": 2,
+          "title": "这是测试数据，仅供参考，为了排版"
+        }
+      ]
+    },
+    "detail": {
+      "detailComment": [
+        {
+          "id": 63,
+          "message": "测试",
+          "nickname": "梦尘",
+          "date": "2018-06-26 17:35",
+          "userPhoto": "assets/image/headimag2.jpg",
+          "response": null,
+          "responseName": null,
+          "responseTime": null,
+          "area": "浙江杭州"
+        },
+        {
+          "id": 64,
+          "message": "测试222",
+          "nickname": "梦尘",
+          "date": "2018-06-26 17:35",
+          "userPhoto": "assets/image/headimag2.jpg",
+          "response": null,
+          "responseName": null,
+          "responseTime": null,
+          "area": "浙江宁波"
+        }
+      ],
+      "tagList": [
+        {
+          "tagId": 1,
+          "tagName": "Android"
+        },
+        {
+          "tagId": 2,
+          "tagName": "javascript"
+        },
+        {
+          "tagId": 3,
+          "tagName": "angularJS"
+        },
+        {
+          "tagId": 28,
+          "tagName": "ip"
+        },
+        {
+          "tagId": 29,
+          "tagName": "node.js"
+        },
+        {
+          "tagId": 30,
+          "tagName": "闭包"
+        },
+        {
+          "tagId": 31,
+          "tagName": "阿里云"
+        },
+        {
+          "tagId": 32,
+          "tagName": "OSS"
+        },
+        {
+          "tagId": 33,
+          "tagName": "canvas"
+        },
+        {
+          "tagId": 34,
+          "tagName": "game"
+        },
+        {
+          "tagId": 35,
+          "tagName": "爬虫"
+        },
+        {
+          "tagId": 36,
+          "tagName": "vue"
+        },
+        {
+          "tagId": 37,
+          "tagName": "插件开发"
+        }
+      ],
+      "articleMostView": [
+        {
+          "articleId": 151,
+          "photo": "assets/image/article/alibaba.png",
+          "title": "阿里云OSS之node.Js表单临时授权Token上传"
+        },
+        {
+          "articleId": 149,
+          "photo": "assets/image/article/nodeJS.jpeg",
+          "title": "Node.js express框架如何记录访问IP?"
+        },
+        {
+          "articleId": 148,
+          "photo": "assets/image/article/Vuejs1.jpg",
+          "title": "JavaScript基础设计（二）——什么是闭包？"
+        }
+      ]
+    },
+    "contact": {
+      "timeLine": [
+        {
+          "title": "2020  5",
+          "date": "2",
+          "text": "2",
+          "class": "period",
+          "isSlide": false
+        },
+        {
+          "title": "学习",
+          "date": "2020  5  24",
+          "text": "学习vue.js spring-boot, element-ui 的基础知识",
+          "class": "",
+          "isSlide": false
+        },
+        {
+          "title": "进行网站搭建",
+          "date": "2020  5  31",
+          "text": "进行了数据库结构的设计,和后台spring boot框架的搭建,前端寻找模板",
+          "class": "",
+          "isSlide": false
+        },
+        {
+          "title": "增加文章，草稿功能",
+          "date": "2020  6  1",
+          "text": "增加了博客文章,草稿功能",
+          "class": "1",
+          "isSlide": false
+        },
+        {
+          "title": "后台管理数据可视化",
+          "date": "2020  6 3",
+          "text": "使用echart 对数据库数据进行可视化展示",
+          "class": "2",
+          "isSlide": false
+        },
+        {
+          "title": "增加四个数据库",
+          "date": "2020  6  5",
+          "text": "增加访客机制，点赞，评论，浏览",
+          "class": "1",
+          "isSlide": false
+        },
+        {
+          "title": "选定百度智能云服务器",
+          "date": "2020  6  8",
+          "text": "在服务器上创数据库，数据表，搭建nginx",
+          "class": "2",
+          "isSlide": false
+        }
+
+      ],
+      "commentList": [
+        {
+          "id": 70,
+          "message": "<img width=\"20px\" height=\"20px\" alt=\"smile\" src=\"assets/image/emotions/emoji/smile.png\"> <img width=\"20px\" height=\"20px\" alt=\"smile\" src=\"assets/image/emotions/emoji/smile.png\">  <img width=\"20px\" height=\"20px\" alt=\"smile\" src=\"assets/image/emotions/emoji/smile.png\"> 谢谢，因为想搭建博客的时候顺便学一下框架",
+          "nickname": "梦尘",
+          "date": "2018-06-28 9:35",
+          "userPhoto": "assets/image/headimag2.jpg",
+          "response": "小哥用的是Vue哦，厉害。:smile: ",
+          "responseName": "雾仙",
+          "responseTime": "2018-06-25 20:36",
+          "area": "浙江杭州"
+        },
+        {
+          "id": 69,
+          "message": "小哥用的是Vue哦，厉害。 <img width=\"20px\" height=\"20px\" alt=\"smile\" src=\"assets/image/emotions/emoji/smile.png\">",
+          "nickname": "雾仙",
+          "date": "2018-06-25 20:36",
+          "userPhoto": "assets/image/headimag2.jpg",
+          "response": null,
+          "responseName": null,
+          "responseTime": null,
+          "area": "广东广州"
+        },
+        {
+          "id": 68,
+          "message": "路过",
+          "nickname": "FUNKYEYES",
+          "date": "2018-06-25 13:18",
+          "userPhoto": "assets/image/headimag2.jpg",
+          "response": null,
+          "responseName": null,
+          "responseTime": null,
+          "area": "浙江宁波"
+        },
+        {
+          "id": 67,
+          "message": "。。。你究竟对我的网站做了什么？ <img width=\"20px\" height=\"20px\" alt=\"scream\" src=\"assets/image/emotions/emoji/scream.png\">",
+          "nickname": "梦尘",
+          "date": "2018-06-09 17:17",
+          "userPhoto": "assets/image/headimag2.jpg",
+          "response": "闪讯直连测试",
+          "responseName": "宁大通信狗",
+          "responseTime": "2018-06-08 15:55",
+          "area": "浙江宁波"
+        },
+        {
+          "id": 66,
+          "message": "闪讯直连测试",
+          "nickname": "宁大通信狗",
+          "date": "2018-06-08 15:55",
+          "userPhoto": "assets/image/headimag2.jpg",
+          "response": null,
+          "responseName": null,
+          "responseTime": null,
+          "area": "浙江宁波"
+        }
+      ],
+      "introduceList": [
+        {
+          "title": "关于学习。",
+          "section": [
+            {
+              "content": "从高三开始学习c语言，由于当时没有电脑，只能啃书，为大学的代码生涯打下了良好的基础"
+            },
+            {
+              "content": "进入大学，买了电脑后，迷失在各种代码语言之间无法自拔，东学一点，西学一点，踩坑无数"
+            },
+            {
+              "content": "当然，凭着自己的喜好和超强的学（fu）习（zhi）能（zhan）力（tie），还是入了程序员的门，成为一名小菜鸡"
+            },
+            {
+              "content": "每天就是花天酒地...呸！昏天黑地的学习，所以个人博客就这么诞生了..."
+            }
+          ]
+        },
+        {
+          "title": "关于生活。",
+          "section": [
+            {
+              "content": "喜欢玩我的世界，GTA5,这种高自由的游戏，特别是我的世界，里面的指令代替了我没电脑的时光"
+            },
+            {
+              "content": "喜欢下象棋，享受那种运筹帷幄的感觉，当然，遇到比我厉害的，再见，我就是这么的欺软怕硬"
+            },
+            {
+              "content": "喜欢自我沉醉，比如没人的时候唱歌，为什么要没人唱呢。有人唱怕被揍，毕竟是被天使吻过的嗓子"
+            },
+            {
+              "content": "喜欢开车，你懂的~"
+            }
+          ]
+        },
+        {
+          "title": "关于本站。",
+          "section": [
+            {
+              "content": "本站从五月底开始，到六月八号，基本完工"
+            },
+            {
+              "content": "本站是基于Vue.js,Element-UI,后台框架用的spring-boot，数据库用的Mysql，云服务器用的百度智能云的服务器"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
