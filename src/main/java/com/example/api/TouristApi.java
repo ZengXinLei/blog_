@@ -2,6 +2,8 @@ package com.example.api;
 
 import com.example.enity.Tourist;
 import com.example.mapping.TouristMapping;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +17,13 @@ import java.util.UUID;
  * @system: ASUS
  **/
 @RestController
+@Api(tags = "游客相关接口",description = "获取游客相关的restful API")
 public class TouristApi {
 
     @Autowired
     TouristMapping touristMapping;
     @PostMapping("/signTourist")
+    @ApiOperation("注册成为游客")
     public Tourist signTourist(){
         Tourist tourist=new Tourist();
         tourist.setTId(UUID.randomUUID().toString());

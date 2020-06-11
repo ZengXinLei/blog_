@@ -5,6 +5,9 @@ import com.example.enity.Draft;
 import com.example.enity.User;
 import com.example.mapping.DraftMapping;
 import com.example.util.DealUser;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +23,7 @@ import java.util.*;
  * @system: ASUS
  **/
 @RestController
+@Api(tags = "草稿相关接口",description = "获取草稿相关RESTFUL API")
 public class DraftApi {
 
     @Autowired
@@ -28,7 +32,8 @@ public class DraftApi {
     private String uuid = "0";
 
     @PostMapping("/saveDrafts")
-    public Map<String, Object> saveDrafts(@RequestBody Map map, HttpSession httpSession) {
+    @ApiOperation("保存草稿，有权限限制")
+    public Map<String, Object> saveDrafts(@RequestBody @ApiParam("草稿对象") Map map, HttpSession httpSession) {
 
         Draft draft = JSON.parseObject(JSON.toJSONString(map), Draft.class);
         HashMap<String, Object> result = new HashMap<>();
@@ -67,12 +72,16 @@ public class DraftApi {
     }
 
     @PostMapping("/getDraftPages")
+    @ApiOperation("获取草稿的总页数")
     public int getDraftPages(){
         return draftMapping.getDraftPages();
     }
 
     @PostMapping("/getDraftList")
-    public List<Draft> getDraftList(@RequestParam("start") int start, @RequestParam("offset") int offset) {
+    @ApiOperation("分页获取草稿")
+    public List<Draft> getDraftList(
+            @RequestParam("start") @ApiParam("开始的地方") int start,
+            @RequestParam("offset") @ApiParam("获取的数据量") int offset) {
         List<Draft> draftList = draftMapping.getDraftList(start, offset);
         for (Draft d :
                 draftList) {
@@ -82,7 +91,10 @@ public class DraftApi {
     }
 
     @PostMapping("/deleteDraft")
-    public Map<String, String> deleteDraft(@RequestParam("did") String did, HttpSession httpSession) {
+    @ApiOperation("删除草稿，有权限限制")
+    public Map<String, String> deleteDraft(
+            @RequestParam("did") @ApiParam("草稿主键") String did ,
+            HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("user");
         Map<String, String> map = new HashMap<String, String>();
         if (user == null) {
@@ -104,7 +116,10 @@ public class DraftApi {
 
 
     @PostMapping("/getDraftById")
-    public Map<String, Object> getDraftById(@RequestParam("did") String did, HttpSession httpSession) {
+    @ApiOperation("根据草稿主键获取草稿，有权限限制")
+    public Map<String, Object> getDraftById(
+            @RequestParam("did") @ApiParam("草稿主键") String did,
+            HttpSession httpSession) {
         HashMap<String, Object> map = new HashMap<>();
         User user = (User) httpSession.getAttribute("user");
         if (user == null) {
@@ -131,6 +146,7 @@ public class DraftApi {
 
 
     @PostMapping("/getTimeCount")
+    @ApiOperation("获取草稿的时间线，有权限要求")
     public List<Map> getTimeCount(HttpSession httpSession){
         User user=(User)httpSession.getAttribute("user");
         if(user==null){
