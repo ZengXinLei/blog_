@@ -2,17 +2,17 @@
   <div class="components-container">
 
     <div class="editor-container">
-
+      <el-input type="text" v-model="draft.dtitle" placeholder="输入文章标题" maxlength="100" minlength="5"
+                show-word-limit></el-input>
       <el-row style="margin-bottom: 10px">
         <el-col :span="18">
-          <el-input type="text" v-model="draft.dtitle" placeholder="输入文章标题" maxlength="100" minlength="5"
-                    show-word-limit></el-input>
+
         </el-col>
         <el-col :span="2" :offset="1">
-          <el-button @click="saveDrafts">保存草稿</el-button>
+
         </el-col>
         <el-col :span="2" :offset="1">
-          <el-button type="danger" @click="dialog=true">发布文章</el-button>
+
         </el-col>
       </el-row>
       <el-row>
@@ -28,16 +28,20 @@
           >{{tag}}</el-tag>
         </el-col>
       </el-row>
-        <MarkdownPro
-          :autoSave="true"
-          :interval="60000"
-          @on-save="saveDrafts"
-          style="margin-top: 20px;"
-          ref="markdownEditor"
-          v-model="draft.dtext"
-          :language="language"
-          :toolbars="options"/>
-
+<!--        <MarkdownPro v-if="false"-->
+<!--          :autoSave="true"-->
+<!--          :interval="60000"-->
+<!--          @on-save="saveDrafts"-->
+<!--          style="margin-top: 20px;"-->
+<!--          ref="markdownEditor"-->
+<!--          v-model="draft.dtext"-->
+<!--          :language="language"-->
+<!--          :toolbars="options"/>-->
+      <mavon-editor style="z-index: 0;min-height: 500px" ref="mavon" v-model="draft.dtext" @change="test" @save="saveDrafts"></mavon-editor>
+      <div style="margin-top: 20px;float:right">
+        <el-button @click="saveDraft">保存草稿</el-button>
+        <el-button type="danger" @click="dialog=!dialog">发布文章</el-button>
+      </div>
     </div>
 
 
@@ -99,7 +103,8 @@
   import {getAllType, getArticleById, publishArticle, saveArticle} from "@/api/article";
   import {transitionTimestamp} from "@/utils/parseTime";
   import Alert from "@/components/alert/alert";
-
+  import mavonEditor from 'mavon-editor'
+  import 'mavon-editor/dist/css/index.css'
   export default {
     name: 'MarkdownDemo',
     components: {Alert, MarkdownPro},
@@ -173,6 +178,12 @@
 
     },
     methods: {
+      test:function(v,r){
+        this.draft.dtext=v
+        this.draft.dhtml=r
+        this.article.aText=v
+        this.article.aHtml=r
+      },
       judge:function(tag){
         if(tag===""){
           return
@@ -208,7 +219,7 @@
       },
       publishArticle() {
         this.article.aText = this.draft.dtext
-        this.article.aHtml = this.$refs.markdownEditor.html
+        this.article.aHtml = this.draft.dhtml
         this.article.aTitle = this.draft.dtitle
         if(this.judge(this.t)){
           this.tags.push(this.t)
@@ -220,7 +231,7 @@
         }
         if (this.article.aTitle === undefined || this.article.aTitle < 5) {
           this.$notify.error({
-            "message": "标题不能少于十个字"
+            "message": "标题不能少于五个字"
           })
           return
         }
@@ -233,7 +244,7 @@
             })
             if (res.data.type === "success") {
               deleteDraft(this.draft.did)
-              this.$router.push("/")
+              this.$router.push("/admin")
             }
           })
         } else {
@@ -245,21 +256,24 @@
             })
             if (res.data.type === "success") {
               deleteDraft(this.draft.did)
-              this.$router.push("/")
+              this.$router.push("/admin")
             }
           })
         }
       },
-      saveDrafts() {
-        let title = this.draft.dtitle
-        let text = this.draft.dtext
-        let html = this.$refs.markdownEditor.html
-        this.draft["dtitle"] = title
-        this.draft['dtext'] = text
-        this.draft["dhtml"] = html
+      saveDrafts(v,r) {
+
+        // let text = this.draft.dtext
+        // let html = this.draft.dhtml
+
+        this.draft['dtext'] = v
+        this.draft["dhtml"] = r
+        this.saveDraft()
 
 
-        if (title === undefined || title.length < 5) {
+      },
+      saveDraft(){
+        if (this.draft.dtitle === undefined || this.draft.dtitle.length < 5) {
           this.$notify.error({
             message: "标题不能低于五个字符"
           })

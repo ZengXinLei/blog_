@@ -182,7 +182,7 @@ export const constantRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  { path: '/admin/*', redirect: '/404', hidden: true }
+  { path: '/admin/*', redirect: '/admin/404', hidden: true }
 ]
 
 const createRouter = () => new Router({

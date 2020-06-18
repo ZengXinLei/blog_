@@ -26,7 +26,7 @@
 
       <el-table-column min-width="300px" label="标题">
         <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.did" class="link-type">
+          <router-link :to="'/admin/components/edit/'+row.did" class="link-type">
             <span>{{ row.dtitle.length>=15?row.dtitle.substring(0,14)+"...":row.dtitle }}</span>
           </router-link>
         </template>
