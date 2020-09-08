@@ -10,7 +10,7 @@
 <!--      <a href="https://aoaoao.me/">树洞</a> &ndash;&gt;-->
 <!--    </p>-->
     <p>
-      <a href="http://beian.miit.gov.cn/" target="_blank">湘ICP备19021068号-1</a>
+      <a href="https://icp.chinaz.com/home/info?host=miluyiguan.club" target="_blank">湘ICP备19021068号-1</a>
     </p>
   </div>
 </template>
