@@ -54,7 +54,7 @@
           </blog-comment>
           <br/><br/>
           <template v-if="flag1">
-            <div id="comment" class="comment-list-head">评论墙 <font style="font-size: 14px;color:#c7254e;">(共{{commentCount}}条评论)</font>
+            <div id="comment" class="comment-list-head">评论墙 <font style="font-size: 14px;color:#c7254e;">(共20条评论)</font>
               <hr/>
             </div>
             <comment-wall :tourist="tourist" :comment-list="commentList" :waterfall-data="waterfallData"
@@ -75,7 +75,7 @@
 
   import config from '@/config/blog-config.json';
   import {verify} from '../../api/tourist';
-  import {addComment, getCommentCount} from '../../api/comment';
+  import {addComment, getComments} from '../../api/comment';
 
   export default {
     name: 'contact',
@@ -88,7 +88,7 @@
     data () {
       return {
         tourist: {},
-        flag1:false,
+        flag1:true,
         wechatFlag: false,
         bloggerImage: require('../../assets/image/tangyida.jpeg'),
         userData: {
@@ -98,7 +98,6 @@
         introduceList: [],
         timelineList: [],
         commentList: [],
-        commentCount:0,
         // 一定要声明这个瀑布流加载的数据对象
         waterfallData: null,
 
@@ -110,11 +109,6 @@
       verify(this.$cookies).then(res => {
         this.tourist = res
         this.init()
-      })
-
-      getCommentCount(-1).then(res=>{
-        this.commentCount=res.data
-        this.flag1=true
       })
 
     },
@@ -198,7 +192,6 @@
         // }, 2000)
       }
     }
-
 
   }
 </script>
