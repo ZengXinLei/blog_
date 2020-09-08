@@ -5,7 +5,7 @@ export  function parseTime(timestamp) {
   let day_num=Math.floor(t/(24 * 3600 ))
   if(day_num>=1){
     if(day_num>30){
-      return new Date(timestamp*1000+ 8 * 3600 * 1000).toJSON().substr(0, 19).replace('T', ' ')
+      return new Date(timestamp+ 8 * 3600 * 1000).toJSON().substr(0, 19).replace('T', ' ')
     }
     return day_num+"天前"
 
