@@ -125,6 +125,7 @@ public class ArticleApi {
     public Map<String,String> publishArticle(@RequestBody @ApiParam("文章对象") Article article,@ApiParam("session数据")  HttpSession httpSession){
         HashMap<String, String> map = new HashMap<>();
         User user = (User) httpSession.getAttribute("user");
+
         if(user==null){
             map.put("type","error");
             map.put("msg","请重新登录");

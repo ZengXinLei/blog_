@@ -1,6 +1,7 @@
 package com.example.api;
 
 import com.example.enity.Looked;
+import com.example.enity.User;
 import com.example.mapping.LookedMapping;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: zxl
@@ -31,5 +36,21 @@ public class LookedApi {
         //看过，更新时间
         else
             lookedMapping.updateRead(looked);
+    }
+
+
+    @PostMapping("/getLookedTimeCount")
+    @ApiOperation("获取浏览的时间线")
+    public List<Map> getLookedTimeCount(HttpSession httpSession){
+        User user=(User)httpSession.getAttribute("user");
+        if(user==null){
+            return null;
+        }
+        else if(user.getULevel()<9){
+            return null;
+        }
+        else {
+            return lookedMapping.getLookedTimeCount();
+        }
     }
 }

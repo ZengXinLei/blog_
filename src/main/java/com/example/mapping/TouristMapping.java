@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author: zxl
  * @Time: 2020/06/05 14:58:15
@@ -31,5 +34,8 @@ public interface TouristMapping {
     Tourist getTouristById(@Param("tId") String tId);
 
 
-
+    @Select({
+            "select from_unixtime(tTime,'%Y-%m-%d') as 'time',count(from_unixtime(tTime,'%Y-%m-%d')) as 'count' from tourist  GROUP BY from_unixtime(tTime,'%Y-%m-%d')"
+    })
+    List<Map> getTouristTimeCount();
 }

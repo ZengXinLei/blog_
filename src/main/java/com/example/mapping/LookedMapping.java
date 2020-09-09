@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author: zxl
  * @Time: 2020/06/05 15:58:58
@@ -35,4 +38,11 @@ public interface LookedMapping {
             "select count(*) from looked where lArticleId=#{lArticleId}"
     })
     int readCount(@Param("lArticleId") int id);
+
+
+
+    @Select({
+            "select from_unixtime(lTime,'%Y-%m-%d') as 'time',count(from_unixtime(lTime,'%Y-%m-%d')) as 'count' from looked  GROUP BY from_unixtime(lTime,'%Y-%m-%d')"
+    })
+    List<Map> getLookedTimeCount();
 }

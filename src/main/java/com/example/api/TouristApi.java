@@ -1,6 +1,7 @@
 package com.example.api;
 
 import com.example.enity.Tourist;
+import com.example.enity.User;
 import com.example.mapping.TouristMapping;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -34,5 +38,19 @@ public class TouristApi {
         tourist.setTName("游客_"+(touristMapping.touristCount()+1));
         touristMapping.signTourist(tourist);
         return tourist;
+    }
+
+    @PostMapping("/getTouristTimeCount")
+    @ApiOperation("获取游客注册时间线")
+    public List<Map> getTouristTimeCount(HttpSession httpSession){
+        User user=(User)httpSession.getAttribute("user");
+        if(user==null){
+            return null;
+        }
+        else if(user.getULevel()<9){
+            return null;
+        }else {
+            return touristMapping.getTouristTimeCount();
+        }
     }
 }
