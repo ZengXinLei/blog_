@@ -24,7 +24,7 @@
       },
       {
         "name": "后台管理",
-        "href": "http://www.miluyiguan.club/admin",
+        "href": "http://localhost/admin",
         "router": "",
         "icon": "assets/image/icon/back.svg"
       }

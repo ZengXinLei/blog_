@@ -12,6 +12,7 @@ export function verify (cookies) {
   return new Promise((e,t)=>{
     let tourist=cookies.get("tourist")
 
+    console.log(tourist)
     if (tourist===null) {
       signTourist().then(res => {
         cookies.set("tourist", res.data, '30d')

@@ -40,6 +40,7 @@
 <script>
 import blogFoot from '@/views/components/blog-foot'
 import {verify} from '../../api/tourist';
+import mySettings from "../../store/settings";
 
 export default {
   name: 'index',
@@ -73,7 +74,7 @@ export default {
         desc: '掌 管 一 切',
         image: require('../../assets/image/cj0.jpeg'),
         router: '/contact',
-        href:"http://www.miluyiguan.club/admin",
+        href:mySettings.url+"admin",
         style: 'effect-marley'
       }],
       title: '我是一名99年生的coder',
@@ -84,6 +85,7 @@ export default {
 
   },
   mounted () {
+    console.log("访问")
     verify(this.$cookies).then(t=>{
       this.tourist=t
       this.flag=true

@@ -5,6 +5,7 @@ import 'font-awesome/css/font-awesome.css'
 import './main.css'// 可复用的CSS全局的CSS文件
 import loading from '@/views/components/loading'
 import VueCookies from 'vue-cookies'
+import mySettings from "./store/settings";
 Vue.use(VueCookies)
 Vue.config.productionTip = false
 
@@ -18,6 +19,7 @@ router.beforeEach((to, from, next) => {
   next();
 })
 
+Vue.prototype.mySettings=mySettings
 router.afterEach((to, from, next) => {
   setTimeout(() => {
     loading.hide();
