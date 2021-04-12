@@ -1,157 +1,200 @@
 <template>
-  <div :id="id" :class="className" :style="{height:height,width:width}"/>
+  <div :id="id" :class="className" :style="{height:height,width:width}" />
 </template>
 
 <script>
-  import echarts from 'echarts'
-  import resize from './mixins/resize'
-  import {getTimeCount} from "@/api/draft";
-  import {computedTime} from "@/utils/parseTime";
-  import {getArticleTimeCount} from "@/api/article";
+import echarts from 'echarts'
+import resize from './mixins/resize'
+import { getTimeCount } from '@/api/draft'
+import { computedTime } from '@/utils/parseTime'
+import { getArticleTimeCount } from '@/api/article'
+import { getTouristTimeCount } from '@/api/tourist'
+import { getLookedTimeCount } from '@/api/looked'
 
-  export default {
-    mixins: [resize],
-    props: {
-      className: {
-        type: String,
-        default: 'chart'
-      },
-      id: {
-        type: String,
-        default: 'chart'
-      },
-      width: {
-        type: String,
-        default: '200px'
-      },
-      height: {
-        type: String,
-        default: '200px'
-      }
+export default {
+  mixins: [resize],
+  props: {
+    className: {
+      type: String,
+      default: 'chart'
     },
-    data() {
-      return {
-        chart: null,
-        draft:[],
-        article:[],
-        chartInfo:[]
-      }
+    id: {
+      type: String,
+      default: 'chart'
     },
-    mounted() {
+    width: {
+      type: String,
+      default: '200px'
+    },
+    height: {
+      type: String,
+      default: '200px'
+    }
+  },
+  data() {
+    return {
+      chart: null,
+      draft: [],
+      article: [],
+      tourist: [],
+      looked: [],
+      chartInfo: []
+
+    }
+  },
+  mounted() {
+    new Promise((resolve, reject) => {
       getTimeCount().then(res => {
-        this.draft=computedTime(res.data)
-
-      }).then(()=>{
-        getArticleTimeCount().then(res=>{
-          this.article=computedTime(res.data)
-        }).then(()=>{
-
-          let o={
-            l:this.draft.length>this.article.length?this.draft.length:this.article.length,
-            o1:this.draft.length>this.article.length?this.draft:this.article,
-            o2:this.draft.length>this.article.length?this.article:this.draft,
-            o3:[]
-          }
-          for (let i = 0; i < o.l; i++) {
-            if(o.o2.length!==0&&o.o1[i]['time']===o.o2[0]['time']){
-              o.o3.push(o.o2[0])
-              o.o2.splice(0,1)
-            }else {
-              o.o3.push({
-                time:o.o1[i]['time'],
-                count:0
-              })
-            }
-          }
-          for (let i = 0; i < o.o3.length; i++) {
-            o.o2.push(o.o3[i])
-          }
-
-        }).then(()=>{
-          this.initChart()
+        this.draft = computedTime(res.data)
+        resolve()
+      })
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        getTouristTimeCount().then(res => {
+          this.tourist = computedTime(res.data)
+          resolve()
         })
       })
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        getArticleTimeCount().then(res => {
+          this.article = computedTime(res.data)
+          resolve()
+        })
+      })
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        getLookedTimeCount().then(res => {
+          this.looked = computedTime(res.data)
+          resolve()
+        })
+      })
+    })
 
-    },
-    beforeDestroy() {
-      if (!this.chart) {
-        return
-      }
-      this.chart.dispose()
-      this.chart = null
-    },
-    methods: {
-      initChart() {
-        let a=this.article
-        let d=this.draft
-        this.chart = echarts.init(document.getElementById(this.id))
-        const xData = (function(){
-          const data = []
-          for (let i = 0; i < a.length; i++) {
-            data.push(a[i]['time'])
-          }
-          return data
-        }())
-        const article=(function() {
-          let data=[]
-          for (let i = 0; i < a.length; i++) {
-            data.push(a[i]['count'])
-          }
-          return data
-        }())
+      .then(() => {
+        this.polishing([this.tourist, this.article, this.draft, this.looked])
+        // console.log(this.article, this.draft)
+        // let o = {
+        //   l: this.draft.length > this.article.length ? this.draft.length : this.article.length,
+        //   o1: this.draft.length > this.article.length ? this.draft : this.article,
+        //   o2: this.draft.length > this.article.length ? this.article : this.draft,
+        //   o3: []
+        // }
+        // for (let i = 0; i < o.l; i++) {
+        //   if (o.o2.length !== 0 && o.o1[i]['time'] === o.o2[0]['time']) {
+        //     o.o3.push(o.o2[0])
+        //     o.o2.splice(0, 1)
+        //   } else {
+        //     o.o3.push({
+        //       time: o.o1[i]['time'],
+        //       count: 0
+        //     })
+        //   }
+        // }
+        // for (let i = 0; i < o.o3.length; i++) {
+        //   o.o2.push(o.o3[i])
+        // }
+        this.initChart()
+      })
+  },
+  beforeDestroy() {
+    if (!this.chart) {
+      return
+    }
+    this.chart.dispose()
+    this.chart = null
+  },
+  methods: {
+    initChart() {
+      const a = this.article
+      const d = this.draft
+      const t = this.tourist
+      const l = this.looked
+      this.chart = echarts.init(document.getElementById(this.id))
+      const xData = (function() {
+        const data = []
+        for (let i = 0; i < a.length; i++) {
+          data.push(a[i]['time'])
+        }
+        return data
+      }())
+      const article = (function() {
+        const data = []
+        for (let i = 0; i < a.length; i++) {
+          data.push(a[i]['count'])
+        }
+        return data
+      }())
 
-        const draft=(function() {
-          let data=[]
+      const draft = (function() {
+        const data = []
 
-          for (let i = 0; i <d.length; i++) {
-            data.push(d[i]['count'])
-          }
-          return data
-        }())
+        for (let i = 0; i < d.length; i++) {
+          data.push(d[i]['count'])
+        }
+        return data
+      }())
 
-        this.chart.setOption({
-          backgroundColor: '#344b58',
-          title: {
-            text: '博客数据',
-            x: '20',
-            top: '20',
-            textStyle: {
-              color: '#fff',
-              fontSize: '22'
-            },
-            subtextStyle: {
-              color: '#90979c',
-              fontSize: '16'
-            }
+      const tourist = (function() {
+        const data = []
+
+        for (let i = 0; i < t.length; i++) {
+          data.push(d[i]['count'])
+        }
+        return data
+      }())
+      const looked = (function() {
+        const data = []
+
+        for (let i = 0; i < l.length; i++) {
+          data.push(d[i]['count'])
+        }
+        return data
+      }())
+      this.chart.setOption({
+        backgroundColor: '#344b58',
+        title: {
+          text: '博客数据',
+          x: '20',
+          top: '20',
+          textStyle: {
+            color: '#fff',
+            fontSize: '22'
           },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              textStyle: {
-                color: '#fff'
-              }
-            }
-          },
-          grid: {
-            left: '5%',
-            right: '5%',
-            borderWidth: 0,
-            top: 150,
-            bottom: 95,
+          subtextStyle: {
+            color: '#90979c',
+            fontSize: '16'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
             textStyle: {
               color: '#fff'
             }
+          }
+        },
+        grid: {
+          left: '5%',
+          right: '5%',
+          borderWidth: 0,
+          top: 150,
+          bottom: 95,
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        legend: {
+          x: '5%',
+          top: '10%',
+          textStyle: {
+            color: '#90979c'
           },
-          legend: {
-            x: '5%',
-            top: '10%',
-            textStyle: {
-              color: '#90979c'
-            },
-            data: ['已发布', '未发布']
-          },
-          calculable: true,
-          xAxis: [{
+          data: ['已发布', '未发布', '访问量', '浏览量']
+        },
+        calculable: true,
+        xAxis: [
+          {
             type: 'category',
             axisLine: {
               lineStyle: {
@@ -173,7 +216,8 @@
             },
             data: xData
           }],
-          yAxis: [{
+        yAxis: [
+          {
             type: 'value',
             splitLine: {
               show: false
@@ -193,7 +237,8 @@
               show: false
             }
           }],
-          dataZoom: [{
+        dataZoom: [
+          {
             show: true,
             height: 30,
             xAxisIndex: [
@@ -220,13 +265,14 @@
             start: 1,
             end: 35
           }],
-          series: [
-            {
+        series: [
+          {
             name: '已发布',
             type: 'bar',
             stack: 'total',
             barMaxWidth: 35,
             barGap: '10%',
+
             itemStyle: {
               normal: {
                 color: 'rgba(255,144,128,1)',
@@ -235,7 +281,7 @@
                   textStyle: {
                     color: '#fff'
                   },
-                  position: 'insideTop',
+                  // position: 'insideTop',
                   formatter(p) {
                     return p.value > 0 ? p.value : ''
                   }
@@ -245,62 +291,84 @@
             data: article
           },
 
-            {
-              name: '未发布',
-              type: 'bar',
-              stack: 'total',
-              itemStyle: {
-                normal: {
-                  color: 'rgba(0,191,183,1)',
-                  barBorderRadius: 0,
-                  label: {
-                    show: true,
-                    position: 'top',
-                    formatter(p) {
-                      return p.value > 0 ? p.value : ''
-                    }
+          {
+            name: '未发布',
+            type: 'bar',
+            stack: 'total',
+            itemStyle: {
+              normal: {
+                color: 'rgba(0,191,183,1)',
+                barBorderRadius: 0,
+                label: {
+                  show: true,
+                  // position: 'top',
+                  formatter(p) {
+                    return p.value > 0 ? p.value : ''
                   }
                 }
-              },
-              data: draft
+              }
             },
-            // {
-            //   name: '访问量',
-            //   type: 'line',
-            //   stack: 'total',
-            //   symbolSize: 10,
-            //   symbol: 'circle',
-            //   itemStyle: {
-            //     normal: {
-            //       color: 'rgba(252,230,48,1)',
-            //       barBorderRadius: 0,
-            //       label: {
-            //         show: true,
-            //         position: 'top',
-            //         formatter(p) {
-            //           return p.value > 0 ? p.value : ''
-            //         }
-            //       }
-            //     }
-            //   },
-            //   data: [
-            //     1036,
-            //     3693,
-            //     2962,
-            //     3810,
-            //     2519,
-            //     1915,
-            //     1748,
-            //     4675,
-            //     6209,
-            //     4323,
-            //     2865,
-            //     4298
-            //   ]
-            // }
-          ]
-        })
-      }
+            data: draft
+          },
+          {
+            name: '访问量',
+            type: 'line',
+            // stack: 'total',
+            symbolSize: 10,
+            symbol: 'circle',
+            itemStyle: {
+              normal: {
+                color: 'rgb(255,0,0)',
+                barBorderRadius: 0,
+                label: {
+                  show: false,
+                  // position: 'inside',
+                  formatter(p) {
+                    return p.value > 0 ? p.value : ''
+                  }
+                }
+              }
+            },
+            data: tourist
+          },
+          {
+            name: '浏览量',
+            type: 'line',
+            // stack: 'total',
+            symbolSize: 10,
+            symbol: 'circle',
+            itemStyle: {
+              normal: {
+                color: 'rgb(0,255,33)',
+                barBorderRadius: 0,
+                label: {
+                  show: false,
+                  // position: 'inside',
+                  formatter(p) {
+                    return p.value > 0 ? p.value : ''
+                  }
+                }
+              }
+            },
+            data: tourist
+          }
+        ]
+      })
+    },
+    polishing(arr) {
+      const max = arr.reduce((a, b) => a.length > b.length ? a : b)
+      arr.forEach(e => {
+        if (e.length === max.length) { return }
+        const gap = max.length - e.length
+        const tmp = max.slice(0, gap)
+        for (let i = 0; i < tmp.length; i++) {
+          e.splice(0, 0, {
+            count: 0,
+            time: tmp[i].time
+          })
+        }
+      })
     }
   }
+}
 </script>
