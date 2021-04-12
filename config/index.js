@@ -5,8 +5,8 @@
 const path = require('path')
 
 module.exports = {
-  publicPath: 'https://cdn.jsdelivr.net/gh/ZengXinLei/blog@master/',
-  // assetsPublicPath: '/',
+  // publicPath: 'https://cdn.jsdelivr.net/gh/ZengXinLei/blog@master/',
+  assetsPublicPath: '/',
   dev: {
 
     // Paths
