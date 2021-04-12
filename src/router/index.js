@@ -112,6 +112,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path:"/admin/config",
+    component:Layout,
+    children: [
+      {
+        path: 'config',
+        component: () => import('@/views/config/index'),
+        name: 'config',
+        meta: { title: '网站设置',icon: "nested" },
+      }
+    ]
+  },
   // {
   //   path: '/nested',
   //   component: Layout,
