@@ -139,7 +139,7 @@ export default {
         const data = []
 
         for (let i = 0; i < t.length; i++) {
-          data.push(d[i]['count'])
+          data.push(t[i]['count'])
         }
         return data
       }())
@@ -147,7 +147,7 @@ export default {
         const data = []
 
         for (let i = 0; i < l.length; i++) {
-          data.push(d[i]['count'])
+          data.push(l[i]['count'])
         }
         return data
       }())
@@ -350,17 +350,19 @@ export default {
                 }
               }
             },
-            data: tourist
+            data: looked
           }
         ]
       })
     },
     polishing(arr) {
       const max = arr.reduce((a, b) => a.length > b.length ? a : b)
+      // console.log()
+      // debugger
       arr.forEach(e => {
         if (e.length === max.length) { return }
         const gap = max.length - e.length
-        const tmp = max.slice(0, gap)
+        const tmp = max.slice(0, gap).reverse()
         for (let i = 0; i < tmp.length; i++) {
           e.splice(0, 0, {
             count: 0,
@@ -368,6 +370,8 @@ export default {
           })
         }
       })
+      console.log(arr)
+
     }
   }
 }
