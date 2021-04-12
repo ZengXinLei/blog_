@@ -25,17 +25,19 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
 
-  publicPath: 'https://cdn.jsdelivr.net/gh/ZengXinLei/blog@master/',
- // publicPath: '/',
+  // publicPath: 'https://cdn.jsdelivr.net/gh/ZengXinLei/blog@master/',
+ publicPath: '/',
   outputDir: 'dist',
-  assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  assetsDir: 'admin/static',
+  // lintOnSave: process.env.NODE_ENV === 'development',//开启eslint
+  lintOnSave: false,
   productionSourceMap: true,
   devServer: {
     port: port,
     proxy:{
       '/api':{
-        target:"http://www.miluyiguan.club:8088",
+        target:"http://localhost:8088",
+        // target:"http://www.miluyiguan.club:8088",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""
@@ -134,5 +136,5 @@ module.exports = {
           config.optimization.runtimeChunk('single')
         }
       )
-  }
+  },
 }
