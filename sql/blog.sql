@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : blog
+ Source Server         : 81.70.228.254
  Source Server Type    : MySQL
- Source Server Version : 80016
- Source Host           : localhost:3306
+ Source Server Version : 50562
+ Source Host           : 81.70.228.254:3306
  Source Schema         : blog
 
  Target Server Type    : MySQL
- Target Server Version : 80016
+ Target Server Version : 50562
  File Encoding         : 65001
 
- Date: 08/09/2020 23:58:40
+ Date: 12/04/2021 17:50:04
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `article`  (
   `aReadCount` int(8) NULL DEFAULT 0,
   `aType` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   PRIMARY KEY (`aId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for comment
@@ -49,7 +49,19 @@ CREATE TABLE `comment`  (
   `cTime` bigint(20) NULL DEFAULT NULL,
   `cState` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'true',
   PRIMARY KEY (`cId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for config
+-- ----------------------------
+DROP TABLE IF EXISTS `config`;
+CREATE TABLE `config`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET gbk COLLATE gbk_chinese_ci NULL DEFAULT NULL,
+  `value` varchar(255) CHARACTER SET gbk COLLATE gbk_chinese_ci NULL DEFAULT NULL,
+  `time` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for draft
@@ -65,7 +77,7 @@ CREATE TABLE `draft`  (
   `duserId` int(10) NULL DEFAULT NULL,
   `dtype` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '无',
   PRIMARY KEY (`did`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for give
@@ -75,7 +87,7 @@ CREATE TABLE `give`  (
   `gArticleId` int(11) NULL DEFAULT NULL,
   `gTouristId` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `gTime` bigint(20) NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for log
@@ -88,7 +100,7 @@ CREATE TABLE `log`  (
   `lAction` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `lMethod` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `lType` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for looked
@@ -98,7 +110,7 @@ CREATE TABLE `looked`  (
   `lArticleId` int(11) NULL DEFAULT NULL,
   `lTouristId` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `lTime` bigint(20) NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for tourist
@@ -111,7 +123,7 @@ CREATE TABLE `tourist`  (
   `tName` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `tPhoto` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'https://s2.ax1x.com/2019/12/06/QY0hQ0.png',
   PRIMARY KEY (`tId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for user
@@ -136,21 +148,19 @@ CREATE TABLE `user`  (
   `uFaith` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '无',
   `uLevel` int(2) NULL DEFAULT 0,
   PRIMARY KEY (`uId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Procedure structure for addComment
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `addComment`;
 delimiter ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addComment`(
-			in cId varchar(60),
+CREATE PROCEDURE `addComment`(in cId varchar(60),
 			in cText varchar(1000),
 			in cTouristId varchar(60),
 			in cArticleId int,
 			in cReviewId varchar(60),
-			in cTime BIGINT	
- )
+			in cTime BIGINT)
 add1:BEGIN
 		declare c int;
 		SELECT count(*) into c from tourist as t where t.tId=cTouristId;
@@ -171,6 +181,7 @@ add1:BEGIN
 		end if;
 		insert into comment (cId,cText,cTouristId,cArticleId,cReviewId,cTime) values (cId,cText,cTouristId,cArticleId,cReviewId,cTime);
    END
+;
 ;;
 delimiter ;
 
